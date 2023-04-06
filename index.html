@@ -103,3 +103,19 @@
         <p1>Platypuses are mainly active at night, and feed on insects, crustaceans, and small fish.</p1>
         <p1>They use electroreception to detect prey in the water, and can close their eyes, ears, and nostrils while diving to hunt underwater.</p1>
         <footer>© 2023 Platypus Information. All rights reserved.</footer>
+  <head>
+    <title>Display Date and Time</title>
+  </head>
+  <body>
+    <p id="datetime"></p>
+
+    <script>
+      var today = new Date();
+      var date = today.toLocaleDateString();
+      var time = today.toLocaleTimeString();
+
+      document.getElementById("datetime").innerHTML = "Today is " + date + " and the time is " + time;
+    </script>
+  </body>
+</html>
+
