@@ -1,8 +1,106 @@
 <!DOCTYPE html>
 <html>
-<body>
- <h1 style="font-family: Arial; color:dark blue"> HELLO </h1>
- 
- 
-</body>
+  <head>
+    <title>Pong Game</title>
+    <style>
+      #canvas {
+        border: 2px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="400" height="400"></canvas>
 
+    <script>
+      // get the canvas element and context
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // set the ball position, speed and size
+      let ballX = canvas.width / 2;
+      let ballY = canvas.height / 2;
+      let ballSpeedX = 5;
+      let ballSpeedY = 5;
+      const ballSize = 10;
+
+      // set the paddles size, position and speed
+      const paddleHeight = 100;
+      const paddleWidth = 10;
+      let player1Y = canvas.height / 2 - paddleHeight / 2;
+      let player2Y = canvas.height / 2 - paddleHeight / 2;
+      const paddleSpeed = 10;
+
+      // function to draw the ball
+      function drawBall() {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(ballX - ballSize / 2, ballY - ballSize / 2, ballSize, ballSize);
+      }
+
+      // function to draw the paddles
+      function drawPaddles() {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, player1Y, paddleWidth, paddleHeight);
+        ctx.fillRect(canvas.width - paddleWidth, player2Y, paddleWidth, paddleHeight);
+      }
+
+      // function to update the ball position and check for collisions with the walls and paddles
+      function update() {
+        ballX += ballSpeedX;
+        ballY += ballSpeedY;
+
+        // check for collision with top or bottom wall
+        if (ballY < ballSize / 2 || ballY > canvas.height - ballSize / 2) {
+          ballSpeedY = -ballSpeedY;
+        }
+
+        // check for collision with left or right wall
+        if (ballX < ballSize / 2 || ballX > canvas.width - ballSize / 2) {
+          ballSpeedX = -ballSpeedX;
+        }
+
+        // check for collision with player 1 paddle
+        if (ballX - ballSize / 2 <= paddleWidth && ballY >= player1Y && ballY <= player1Y + paddleHeight) {
+          ballSpeedX = -ballSpeedX;
+        }
+
+        // check for collision with player 2 paddle
+        if (ballX + ballSize / 2 >= canvas.width - paddleWidth && ballY >= player2Y && ballY <= player2Y + paddleHeight) {
+          ballSpeedX = -ballSpeedX;
+        }
+
+        // move player 1 paddle with arrow keys
+        if (keys[38] && player1Y > 0) {
+          player1Y -= paddleSpeed;
+        } else if (keys[40] && player1Y + paddleHeight < canvas.height) {
+          player1Y += paddleSpeed;
+        }
+
+        // move player 2 paddle with arrow keys
+        if (keys[87] && player2Y > 0) {
+          player2Y -= paddleSpeed;
+        } else if (keys[83] && player2Y + paddleHeight < canvas.height) {
+          player2Y += paddleSpeed;
+        }
+      }
+
+      // function to clear the canvas and draw the
+    // draw the ball and paddles
+    drawBall();
+    drawPaddles();
+
+    // update the game
+    update();
+  }
+
+  // listen for arrow key events
+  const keys = [];
+  document.addEventListener('keydown', (event) => {
+    keys[event.keyCode] = true;
+  });
+  document.addEventListener('keyup', (event) => {
+    keys[event.keyCode] = false;
+  });
+
+  // start the game loop
+  setInterval(draw, 20);
+</script>
