@@ -85,22 +85,22 @@
 
       // function to clear the canvas and draw the
     // draw the ball and paddles
-    drawBall();
-    drawPaddles();
+      drawBall();
+      drawPaddles();
 
     // update the game
-    update();
+      update();
   }
 
   // listen for arrow key events
-  const keys = [];
-  document.addEventListener('keydown', (event) => {
-    keys[event.keyCode] = true;
-  });
-  document.addEventListener('keyup', (event) => {
-    keys[event.keyCode] = false;
+    const keys = [];
+    document.addEventListener('keydown', (event) => {
+      keys[event.keyCode] = true;
+   });
+    document.addEventListener('keyup', (event) => {
+      keys[event.keyCode] = false;
   });
 
   // start the game loop
-  setInterval(draw, 20);
+    setInterval(draw, 20);
 </script>
